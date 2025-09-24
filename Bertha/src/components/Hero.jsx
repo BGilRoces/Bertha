@@ -1,28 +1,18 @@
+import heroImg from '../assets/extras/evento.jpg'
+
 function Hero() {
   return (
     <section
       id="inicio"
-      className="min-h-screen pt-20 flex items-center justify-center text-center bg-gradient-to-br from-[#8b9374] to-[#6b7c5a] text-[#f2f2e9]"
+      className="min-h-[62vh] pt-10 flex items-center justify-center text-center text-[#f2f2e9]"
+      style={{ backgroundImage: `linear-gradient(rgba(17, 17, 17, 0.82), rgba(17, 17, 17, 0.43)), url(${heroImg})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}
     >
       <div className="container mx-auto px-4">
-        <h1 className="text-[4rem] mb-4 font-serif font-[400] tracking-wider">Café Barrio</h1>
-        <p className="text-[1.15rem] mb-8 opacity-90 max-w-xl mx-auto">
-          Donde la tradición se encuentra con la modernidad. El café de tu barrio, con el sabor que recordarás para siempre.
-        </p>
-
+        <h1 className="text-[3rem] md:text-[3.6rem] -mb-2 font-effra effra-bold tracking-wider drop-shadow-lg">BERTHA</h1>
+        <p className="text-[1rem] md:text-[1.05rem] mb-6 opacity-95 max-w-xl mx-auto leading-relaxed">Café de Especialidad</p>
         <div className="flex gap-4 justify-center flex-wrap">
-          <a
-            href="#menu"
-            className="px-6 py-3 text-lg border-2 border-[#f2f2e9] bg-transparent text-[#f2f2e9] rounded-md transition hover:opacity-90"
-          >
-            Ver Menú
-          </a>
-          <a
-            href="#nosotros"
-            className="px-6 py-3 text-lg border-2 border-[#f2f2e9] bg-[#f2f2e9] text-[#8b9374] rounded-md transition hover:opacity-90"
-          >
-            Nuestra Historia
-          </a>
+          <a href="#menu" className="font-semibold px-6 py-1.5 text-lg border-2 border-[#f2f2e9] bg-[#8b9374] text-[#f2f2e9] rounded-md transition hover:opacity-90">Menú</a>
+          <a href="#contacto" className="font-semibold px-6 py-1.5 text-lg border-2 border-[#8b9374] bg-[#f2f2e9] text-[#8b9374] rounded-md transition hover:opacity-90">Contacto</a>
         </div>
       </div>
     </section>

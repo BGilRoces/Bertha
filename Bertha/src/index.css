@@ -1,1 +1,28 @@
 @import "tailwindcss";
+
+/* Effra font stack: Effra is a commercial font. If you have the font files, load them via @font-face.
+	 Example (place fonts in public/fonts and uncomment):
+
+	 @font-face {
+		 font-family: 'Effra';
+		 src: url('/fonts/Effra-Bold.woff2') format('woff2');
+		 font-weight: 700;
+		 font-style: normal;
+		 font-display: swap;
+	 }
+
+*/
+
+/* Utility class to use Effra (or fallback system sans) */
+.font-effra {
+	font-family: 'Effra', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+}
+
+.effra-bold {
+	font-weight: 700;
+}
+
+/* Apply Effra to headings site-wide */
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Effra', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+}

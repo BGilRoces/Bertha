@@ -1,3 +1,5 @@
+import { contactInfo } from '../data/menuData'
+
 function Footer() {
   return (
     <footer className="bg-[#4a5340] text-[#f2f2e9] py-8">
@@ -19,10 +21,11 @@ function Footer() {
           </div>
 
           <div>
-            <h5 className="mb-4">Seguinos</h5>
-            <div className="flex justify-center gap-4">
-              <a href="#" className="text-[#f2f2e9] opacity-80">📷 Instagram</a>
-              <a href="#" className="text-[#f2f2e9] opacity-80">📘 Facebook</a>
+            <h5 className="mb-4">Contacto</h5>
+            <div className="flex flex-col gap-2 text-sm opacity-90">
+              <span>📍 {contactInfo.direccion}</span>
+              <span>📞 {contactInfo.telefono}</span>
+              <span>✉️ {contactInfo.email}</span>
             </div>
           </div>
         </div>

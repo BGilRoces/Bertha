@@ -1,4 +1,5 @@
 import { contactInfo } from '../data/menuData'
+import LogoBertha02 from '../assets/logos/LogoBertha02.png'
 
 function Footer() {
   return (
@@ -6,7 +7,7 @@ function Footer() {
       <div className="container mx-auto px-4">
         <div className="grid gap-8 grid-cols-1 md:grid-cols-[1fr_1fr_1fr] mb-8">
           <div>
-            <h4 className="mb-4 font-effra font-bold text-2xl tracking-wide">BERTHA</h4>
+            <img src={LogoBertha02} alt="Logo Bertha" className="mb-4 h-10 w-auto" />
             <p className="opacity-80 leading-relaxed">El sabor de la tradición, la calidez del hogar.</p>
           </div>
 

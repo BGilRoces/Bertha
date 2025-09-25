@@ -1,12 +1,24 @@
 import React, { useRef, useEffect } from 'react'
-import logoInstagram from '/src/assets/extras/LogoInstagram.png'
+import LogoBertha02 from '../assets/logos/LogoBertha02.png'
 
-// Reemplaza los links por los videos mp4 que quieras
+// Reemplaza los links por los videos mp4 y el link real del reel
 const REELS = [
-  '/src/assets/reels/reel1.mp4',
-  '/src/assets/reels/reel5.mp4',
-  '/src/assets/reels/reel3.mp4',
-  '/src/assets/reels/reel4.mp4'
+  {
+    src: '/src/assets/reels/reel1.mp4',
+    link: 'https://www.instagram.com/reel/DLDoWqVSDWc/'
+  },
+  {
+    src: '/src/assets/reels/reel5.mp4',
+    link: 'https://www.instagram.com/reel/DHtFyRXOl8L/'
+  },
+  {
+    src: '/src/assets/reels/reel3.mp4',
+    link: 'https://www.instagram.com/reel/DOhQLzyjy6H/'
+  },
+  {
+    src: '/src/assets/reels/reel4.mp4',
+    link: 'https://www.instagram.com/reel/DN6gyKyEvpa/'
+  }
 ]
 
 function Gallery() {
@@ -37,16 +49,29 @@ function Gallery() {
   return (
     <section className="py-16 bg-[#f6f6f1]">
       <div className="container mx-auto px-4">
-        <h2 className="flex items-center justify-center gap-1.5 text-3xl font-serif text-[#8b9374] mb-6 text-center">
-          <img src={logoInstagram} alt="Logo Instagram" className="w-14" />
-          <span className='mb-1 font-effra font-semibold tracking'>@CAFE.BERTHA</span>
-        </h2>
+        <div className="flex flex-col items-center justify-center mb-8">
+          <div className="flex items-center gap-4 bg-[#8b9374]/50 rounded-full px-7 py-4 shadow-lg">
+            <div className="border border-gray-800 border-opacity-10 flex items-center justify-center rounded-full bg-[#8b9374] w-16 h-16 overflow-hidden">
+              <img src={LogoBertha02} alt="Logo Bertha" className="w-16 h-16 ml-1 object-contain" />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-lg font-effra font-bold text-gray-800 tracking-wide">@cafe.bertha</span>
+              <span className="text-sm text-gray-700 opacity-90">Bertha - Café de especialidad</span>
+            </div>
+          </div>
+        </div>
         <div className="flex flex-wrap justify-center gap-8">
-          {REELS.map((src, i) => (
-            <div key={i} className="relative rounded-xl shadow-md overflow-hidden bg-white w-[320px] h-[460px] flex items-center justify-center">
+          {REELS.map((reel, i) => (
+            <a
+              key={i}
+              href={reel.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative rounded-xl shadow-md overflow-hidden bg-white w-[320px] h-[460px] flex items-center justify-center cursor-pointer"
+            >
               <video
                 ref={el => videoRefs.current[i] = el}
-                src={src}
+                src={reel.src}
                 className="w-full h-full object-cover"
                 muted
                 loop
@@ -55,7 +80,18 @@ function Gallery() {
                 controls={false}
                 style={{background: '#222'}}
               />
-            </div>
+              <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="flex items-center justify-center">
+                  <span className="flex items-center justify-center rounded-full bg-[#8b9374] w-16 h-16 shadow-lg">
+                    {/* Icono Play/Despausa SVG más grande, solo blanco */}
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" className="w-12 h-12">
+                      <polygon points="18,15 34,24 18,33" fill="#f2f2e9" />
+                    </svg>
+                  </span>
+                </div>
+                <span className="text-[#f2f2e9] text-lg font-effra font-bold px-4 py-1">Ver Reel</span>
+              </div>
+            </a>
           ))}
         </div>
       </div>

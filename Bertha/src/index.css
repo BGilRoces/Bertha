@@ -1,3 +1,13 @@
+@font-face {
+	font-family: 'Marydale';
+	src: url('./assets/fonts/MARYDALE.TTF') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+.font-marydale {
+	font-family: 'Marydale', cursive, sans-serif;
+}
 @import "tailwindcss";
 
 /* Effra font stack: Effra is a commercial font. If you have the font files, load them via @font-face.

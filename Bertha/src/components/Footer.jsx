@@ -2,11 +2,11 @@ import { contactInfo } from '../data/menuData'
 
 function Footer() {
   return (
-    <footer className="bg-[#4a5340] text-[#f2f2e9] py-8">
+  <footer className="bg-[#8b9374] text-[#f2f2e9] py-8">
       <div className="container mx-auto px-4">
         <div className="grid gap-8 grid-cols-1 md:grid-cols-[1fr_1fr_1fr] mb-8">
           <div>
-            <h4 className="mb-4 font-serif text-xl">Café Barrio</h4>
+            <h4 className="mb-4 font-effra font-bold text-2xl tracking-wide">BERTHA</h4>
             <p className="opacity-80 leading-relaxed">El sabor de la tradición, la calidez del hogar.</p>
           </div>
 
@@ -31,7 +31,7 @@ function Footer() {
         </div>
 
         <div className="border-t border-[rgba(242,242,233,0.2)] pt-6 opacity-70 text-center">
-          <p>&copy; 2025 Café Barrio. Todos los derechos reservados.</p>
+          <p>&copy; KlikYListo. Todos los derechos reservados.</p>
           <p className="text-sm mt-2">Hecho con ❤️ para la comunidad del barrio</p>
         </div>
       </div>

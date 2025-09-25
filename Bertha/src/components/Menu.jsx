@@ -127,6 +127,7 @@ function Menu() {
   const tabs = [...tabsOrder.filter((t) => Object.prototype.hasOwnProperty.call(MENU, t)), ALL_TAB]
   const [active, setActive] = useState(0)
   const [query, setQuery] = useState('')
+  // eslint-disable-next-line no-unused-vars
   const [copied, setCopied] = useState('')
 
   // restore simple emoji mapping for tabs and special-case the item 'Huevos'
@@ -154,11 +155,11 @@ function Menu() {
   return (
     <section id="menu" className="py-16 bg-[#f2f2e9]">
       <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-serif text-[#8b9374] mb-6 text-center">Nuestro Menú</h2>
+        <h2 className="text-4xl font-serif text-[#8b9374] mb-6 font-effra effra-bold tracking text-center">MENÚ</h2>
 
-        {/* Search + Tab list */}
-        <div className="mb-6">
-          <div className="flex justify-center mb-4">
+        {/* Search + Todos tab */}
+        <div className="mb-6 flex flex-col items-center">
+          <div className="flex justify-center items-center gap-3 mb-4 w-full max-w-3xl">
             <div className="w-full max-w-md relative">
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -171,7 +172,6 @@ function Menu() {
                 onChange={(e) => {
                   const v = e.target.value
                   setQuery(v)
-                  // when user types, switch to Todos so search always applies there
                   if (v.trim() !== '') {
                     const todosIndex = tabs.indexOf(ALL_TAB)
                     if (todosIndex !== -1) setActive(todosIndex)
@@ -190,33 +190,34 @@ function Menu() {
                 </button>
               )}
             </div>
+            {/* Botón Todos al lado de la barra de búsqueda */}
+            <button
+              key={ALL_TAB}
+              role="tab"
+              aria-selected={active === tabs.indexOf(ALL_TAB)}
+              onClick={() => setActive(tabs.indexOf(ALL_TAB))}
+              className={`whitespace-nowrap px-4 py-2 rounded-full transition-all duration-200 flex-shrink-0 flex items-center gap-2 ${
+                active === tabs.indexOf(ALL_TAB)
+                  ? 'bg-[#8b9374] text-[#f2f2e9] shadow-md scale-[1.03]'
+                  : 'bg-white text-[#8b9374] ring-1 ring-[#e6e6df] hover:bg-[#f6f6f1]'
+              }`}
+            >
+              <span className="font-medium text-sm"><span className="mr-2" aria-hidden>📋</span>Todos</span>
+              <span className="bg-[#f2f2e9] text-[#8b9374] text-[11px] px-2 py-0.5 rounded-full ring-1 ring-[#e6e6df]">
+                {Object.values(MENU).reduce((acc, section) => acc + Object.values(section).reduce((sAcc, arr) => sAcc + arr.length, 0), 0)}
+              </span>
+            </button>
           </div>
 
+          {/* Tab list menos Todos */}
           <div
             role="tablist"
             aria-label="Categorías del menú"
-            className="flex gap-3 justify-center flex-wrap overflow-x-auto py-2 px-1"
+            className="flex gap-3 justify-center flex-wrap overflow-x-auto py-2 px-1 w-full max-w-3xl"
           >
-            {tabs.map((tab, i) => {
-              // compute count of items in this tab (respecting query filter). For 'Todos' sum across all sections.
-              const total = (() => {
-                if (tab === ALL_TAB) {
-                  return Object.values(MENU).reduce((acc, section) => {
-                    return acc + Object.values(section).reduce((sAcc, arr) => {
-                      if (!query) return sAcc + arr.length
-                      const q = query.toLowerCase()
-                      return sAcc + arr.filter(it => (it.nombre + ' ' + (it.descripcion || '')).toLowerCase().includes(q)).length
-                    }, 0)
-                  }, 0)
-                }
-
-                return Object.values(MENU[tab]).reduce((acc, arr) => {
-                  if (!query) return acc + arr.length
-                  const q = query.toLowerCase()
-                  return acc + arr.filter(it => (it.nombre + ' ' + (it.descripcion || '')).toLowerCase().includes(q)).length
-                }, 0)
-              })()
-
+            {tabs.filter(tab => tab !== ALL_TAB).map((tab, i) => {
+              // compute count of items in this tab (respecting query filter)
+              const total = Object.values(MENU[tab]).reduce((acc, arr) => acc + arr.length, 0)
               return (
                 <button
                   key={tab}
@@ -229,7 +230,7 @@ function Menu() {
                       : 'bg-white text-[#8b9374] ring-1 ring-[#e6e6df] hover:bg-[#f6f6f1]'
                   }`}
                 >
-                  <span className="font-medium text-sm"><span className="mr-2" aria-hidden>{TAB_EMOJI[tab] || (tab === ALL_TAB ? '📋' : '•')}</span>{tab}</span>
+                  <span className="font-medium text-sm"><span className="mr-2" aria-hidden>{TAB_EMOJI[tab] || '•'}</span>{tab}</span>
                   <span className="bg-[#f2f2e9] text-[#8b9374] text-[11px] px-2 py-0.5 rounded-full ring-1 ring-[#e6e6df]">{total}</span>
                 </button>
               )
@@ -237,12 +238,12 @@ function Menu() {
           </div>
         </div>
 
-        {/* Active panel with fixed height and internal scroll (narrowed) */}
-        <div className="max-w-3xl mx-auto">
+        {/* Active panel con ancho igual al de las tabs */}
+        <div className="w-full max-w-3xl lg:max-w-5xl mx-auto">
           <div className="bg-white rounded-2xl p-6 shadow-sm h-[55vh] md:h-[70vh] overflow-hidden">
-            <div className="h-full overflow-auto pr-2">
-              <div className="columns-1 md:columns-2 md:[column-gap:2rem]">
-                {tabs.length === 0 ? (
+            <div className="h-full overflow-auto">
+              <div className="columns-1 md:columns-2 md:[column-gap:1.2rem]">
+              {tabs.length === 0 ? (
                   <div className="col-span-full text-center text-gray-500">No hay categorías de menú disponibles</div>
                 ) : (
                   (() => {
@@ -265,23 +266,23 @@ function Menu() {
 
                     // If 'Todos' is active, render each top-level section and its subsections
                     if (currentTab === ALL_TAB) {
-                      return Object.entries(MENU).map(([topTitle, subSections]) => (
+                    return Object.entries(MENU).map(([topTitle, subSections], idx) => (
                         <div key={topTitle} className="break-inside-avoid mb-6">
-                          <h3 className="text-2xl font-serif text-[#8b9374] mb-3 border-l-4 border-[#e9e9e1] pl-4">{topTitle}</h3>
+                        <h3 className={`text-2xl font-effra effra-bold text-[#8b9374] mb-1 ${idx === 0 ? '' : 'mt-6'} border-l-4 border-[#e9e9e1] pl-4`}>{topTitle}</h3>
                           {Object.entries(subSections).map(([subTitle, items]) => {
                             const filtered = items.filter(matchesPredicate)
                             if (filtered.length === 0) return null
                             return (
                               <div key={subTitle} className="mb-4">
-                                <h4 className="text-lg font-medium text-[#8b9374] mb-2">{subTitle}</h4>
-                                <ul className="space-y-3">
+                                <h4 className="text-xl font-marydale tracking-wide text-[#8b9374] mt-2 ml-5">{subTitle}</h4>
+                                  <ul className="space-y-0">
                                   {filtered.map((it, idx) => (
                                     <li key={idx} className="py-3 last:pb-0">
-                                      <div className="flex items-center gap-4 p-3 rounded-lg bg-white shadow-sm hover:shadow-md transition">
+                                      <div className="flex items-center gap-2 p-2 rounded-lg bg-white shadow-sm hover:shadow-md transition">
                                         <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#f0f0ea] to-[#e9e9df] flex items-center justify-center text-[#8b9374] font-medium">{(it.nombre && normalize(it.nombre).includes('huev')) ? '🥚' : (TAB_EMOJI[topTitle] || '•')}</div>
                                         <div className="flex-1">
-                                          <p className="font-semibold text-lg text-[#111]">{it.nombre}</p>
-                                          {it.descripcion && <p className="text-sm text-gray-500 mt-1">{it.descripcion}</p>}
+                                          <p className="font-semibold text-base text-[#111]">{it.nombre}</p>
+                                            {it.descripcion && <p className="text-sm text-gray-500">{it.descripcion}</p>}
                                         </div>
                                         <div className="flex items-center">
                                           <button
@@ -295,7 +296,6 @@ function Menu() {
                                             title="Copiar nombre"
                                             className="text-sm text-gray-500 hover:text-gray-700 ml-2"
                                           >
-                                            {copied === it.nombre ? '✓' : '📋'}
                                           </button>
                                         </div>
                                       </div>
@@ -310,20 +310,20 @@ function Menu() {
                     }
 
                     // otherwise render only the active top-level category
-                    return Object.entries(MENU[currentTab] || {}).map(([subTitle, items]) => {
+                    return Object.entries(MENU[currentTab] || {}).map(([subTitle, items], idx) => {
                       const filtered = items.filter(matchesPredicate)
                       if (filtered.length === 0) return null
                       return (
                         <div key={subTitle} className="break-inside-avoid mb-6">
-                          <h3 className="text-2xl font-serif text-[#8b9374] mb-3 border-l-4 border-[#e9e9e1] pl-4">{subTitle}</h3>
+                          <h3 className={`text-2xl font-effra effra-bold text-[#8b9374] mb-3 ${idx === 0 ? '' : 'mt-6'} border-l-4 border-[#e9e9e1] pl-4`}>{subTitle}</h3>
                           <ul className="space-y-3">
                             {filtered.map((it, idx) => (
-                              <li key={idx} className="py-3 last:pb-0">
+                              <li key={idx} className="py-1 last:pb-0">
                                 <div className="flex items-center gap-4 p-3 rounded-lg bg-white shadow-sm hover:shadow-md transition">
                                   <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#f0f0ea] to-[#e9e9df] flex items-center justify-center text-[#8b9374] font-medium">{(it.nombre && normalize(it.nombre).includes('huev')) ? '🥚' : (TAB_EMOJI[currentTab] || '•')}</div>
                                   <div className="flex-1">
                                     <p className="font-semibold text-lg text-[#111]">{it.nombre}</p>
-                                    {it.descripcion && <p className="text-sm text-gray-500 mt-1">{it.descripcion}</p>}
+                                    {it.descripcion && <p className="text-sm text-gray-500">{it.descripcion}</p>}
                                   </div>
                                   <div className="flex items-center">
                                     <button
@@ -337,7 +337,6 @@ function Menu() {
                                       title="Copiar nombre"
                                       className="text-sm text-gray-500 hover:text-gray-700 ml-2"
                                     >
-                                      {copied === it.nombre ? '✓' : '📋'}
                                     </button>
                                   </div>
                                 </div>

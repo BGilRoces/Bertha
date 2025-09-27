@@ -47,7 +47,7 @@ const OptionsCard = () => {
     <Card >
       <div className="flex-1 flex flex-col">
         {/* Options buttons */}
-  <div className="flex flex-wrap gap-2 mb-6 justify-center">
+  <div className="flex flex-wrap gap-2 mb-6 justify-center mt-2">
           {options.map((option) => (
             <button
               key={option.key}

@@ -16,7 +16,7 @@ const StaticCard = () => {
   return (
     <Card title="Nuestro Espacio">
   <p className="text-[#8b9374]">Encontranos de martes a domingo en {contactInfo.direccion}</p>
-      <div className="flex-1 flex flex-col mt-2">
+      <div className="flex-1 flex flex-col mt-4">
           <Carousel images={localImages} />
       </div>
     </Card>

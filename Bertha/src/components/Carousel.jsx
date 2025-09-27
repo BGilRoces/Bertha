@@ -25,7 +25,7 @@ const Carousel = ({ images, className = '' }) => {
   return (
     <div className={`relative group ${className}`}>
       {/* Main image container - use a consistent 16:9 aspect ratio */}
-      <div className="relative overflow-hidden rounded-lg aspect-[16/9]">
+      <div className="relative overflow-hidden rounded-lg aspect-[3/2]">
         <img
           src={images[currentIndex]}
           alt={`Slide ${currentIndex + 1}`}

@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
 import { Coffee, Utensils, Cookie, ChevronLeft, ChevronRight } from 'lucide-react';
 
-
-const heightMenu = 345;
-const widthMenu = 680;
-
 const menuData = {
   cafes: {
     icon: Coffee,
@@ -56,73 +52,67 @@ function MenuGallery() {
   }, [activeCategory]);
 
   return (
-    <div className="space-y-8">
-      <div className="bg-white rounded-3xl p-8 border border-[#8b9374]/20 shadow-xl">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-3xl font-bold text-[#8b9374] flex items-center gap-3 font-effra mb-0">
-            <IconComponent className="text-[#8b9374]" />
-            Menú
-          </h2>
-          <div className="flex gap-2">
-            {Object.entries(menuData).map(([key]) => (
-              <button
-                key={key}
-                onClick={() => setActiveCategory(key)}
-                className={`px-4 py-2 rounded-xl font-medium transition-all capitalize ${
-                  activeCategory === key 
-                    ? 'bg-[#8b9374] text-white shadow-lg' 
-                    : 'bg-[#f6f6f1] text-[#8b9374] hover:bg-[#8b9374]/10'
-                }`}
-              >
-                {key}
-              </button>
-            ))}
-          </div>
+    <div className="bg-white rounded-xl 2xl:rounded-3xl p-2 sm:p-3 2xl:p-6 border border-[#8b9374]/20 shadow-lg 2xl:shadow-xl">
+      <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between mb-2 sm:mb-3 2xl:mb-6 gap-1 sm:gap-2 2xl:gap-3">
+        <h2 className="text-sm sm:text-base 2xl:text-3xl font-bold text-[#8b9374] flex items-center gap-1 sm:gap-2 2xl:gap-3 font-effra">
+          <IconComponent className="text-[#8b9374] w-4 h-4 sm:w-5 sm:h-5 2xl:w-6 2xl:h-6" />
+          Menú
+        </h2>
+        <div className="flex gap-1 sm:gap-1.5 2xl:gap-2">
+          {Object.entries(menuData).map(([key]) => (
+            <button
+              key={key}
+              onClick={() => setActiveCategory(key)}
+              className={`px-1.5 py-1 sm:px-2.5 sm:py-1.5 2xl:px-3 2xl:py-2 rounded-md sm:rounded-lg 2xl:rounded-xl font-medium transition-all capitalize text-xs 2xl:text-sm ${
+                activeCategory === key 
+                  ? 'bg-[#8b9374] text-white shadow-lg' 
+                  : 'bg-[#f6f6f1] text-[#8b9374] hover:bg-[#8b9374]/10'
+              }`}
+            >
+              {key}
+            </button>
+          ))}
         </div>
-        {/* Image Carousel */}
-        <div className="relative mb-6 group">
-          <div
-            className="relative rounded-2xl overflow-hidden mx-auto"
-            style={{
-              height: window.innerWidth >= 1536 ? `${heightMenu}px` : `calc(${heightMenu}px * 0.7)`,
-              width: window.innerWidth >= 1536 ? `${widthMenu}px` : `calc(${widthMenu}px * 0.95)`
-            }}
-          >
-            <img 
-              src={currentImages[currentImage]} 
+      </div>
+      
+      {/* Image Carousel */}
+      <div className="relative group">
+        <div className="relative rounded-lg 2xl:rounded-2xl overflow-hidden w-full h-full bg-[#f6f6f1]">
+          <div className="aspect-[16/9] w-full">
+            <img
+              src={currentImages[currentImage]}
               alt={`${activeCategory} - ${currentImage}`}
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 rounded-2xl"
-              style={{
-                height: window.innerWidth >= 1536 ? `${heightMenu}px` : `calc(${heightMenu}px * 0.7)`,
-                width: window.innerWidth >= 1536 ? `${widthMenu}px` : `calc(${widthMenu}px * 0.95)`
-              }}
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
-            <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-[#8b9374]/40 to-transparent pointer-events-none" />
           </div>
-          <button 
-            onClick={prevImage}
-            className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/30 backdrop-blur-sm rounded-full p-2 text-black hover:bg-white/20 transition-all"
-          >
-            <ChevronLeft size={20} />
-          </button>
-          <button 
-            onClick={nextImage}
-            className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/30 backdrop-blur-sm rounded-full p-2 text-black hover:bg-[#8b9374]/20 transition-all"
-          >
-            <ChevronRight size={20} />
-          </button>
-          {/* Dots indicator */}
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-            {currentImages.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentImage(index)}
-                className={`w-2 h-2 rounded-full transition-all ${
-                  index === currentImage ? 'bg-white/80 w-8' : 'bg-white/50'
-                }`}
-              />
-            ))}
-          </div>
+          <div className="absolute inset-0 bg-gradient-to-t from-[#8b9374]/40 to-transparent pointer-events-none" />
+        </div>
+        
+        <button 
+          onClick={prevImage}
+          className="absolute left-1 sm:left-2 2xl:left-4 top-1/2 -translate-y-1/2 bg-white/30 backdrop-blur-sm rounded-full p-1 sm:p-1.5 2xl:p-2 text-black hover:bg-white/20 transition-all"
+        >
+          <ChevronLeft className="w-3 h-3 sm:w-4 sm:h-4 2xl:w-5 2xl:h-5" />
+        </button>
+        
+        <button 
+          onClick={nextImage}
+          className="absolute right-1 sm:right-2 2xl:right-4 top-1/2 -translate-y-1/2 bg-white/30 backdrop-blur-sm rounded-full p-1 sm:p-1.5 2xl:p-2 text-black hover:bg-[#8b9374]/20 transition-all"
+        >
+          <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4 2xl:w-5 2xl:h-5" />
+        </button>
+        
+        {/* Dots indicator */}
+        <div className="absolute bottom-1 sm:bottom-2 2xl:bottom-4 left-1/2 -translate-x-1/2 flex gap-1 sm:gap-1.5 2xl:gap-2">
+          {currentImages.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentImage(index)}
+              className={`w-1 h-1 sm:w-1.5 sm:h-1.5 2xl:w-2 2xl:h-2 rounded-full transition-all ${
+                index === currentImage ? 'bg-white/80 w-4 sm:w-6 2xl:w-8' : 'bg-white/50'
+              }`}
+            />
+          ))}
         </div>
       </div>
     </div>

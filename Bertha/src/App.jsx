@@ -1,19 +1,19 @@
 import Header from './sections/Header'
 import Hero from './sections/Hero'
 import Menu from './sections/Menu'
-import AboutBertha from './sections/About'
+import Gallery from './sections/Gallery'
 import Contact from './sections/Contact'
 import Footer from './sections/Footer'
-import Gallery from './sections/Gallery'
+import Reels from './sections/Reels'
 
 function App() {
   return (
     <div className="App">
       <Header />
       <Hero />
-      <Gallery />
+      <Reels />
       <Menu />
-      <AboutBertha />
+      <Gallery />
       <Contact />
       <Footer />
     </div>

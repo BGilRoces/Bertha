@@ -1,10 +1,10 @@
-import Header from './components/Header'
-import Hero from './components/Hero'
-import Menu from './components/Menu'
-import AboutBertha from './components/About'
-import Contact from './components/Contact'
-import Footer from './components/Footer'
-import Gallery from './components/Gallery'
+import Header from './sections/Header'
+import Hero from './sections/Hero'
+import Menu from './sections/Menu'
+import AboutBertha from './sections/About'
+import Contact from './sections/Contact'
+import Footer from './sections/Footer'
+import Gallery from './sections/Gallery'
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
       <Hero />
       <Gallery />
       <Menu />
-  <AboutBertha />
+      <AboutBertha />
       <Contact />
       <Footer />
     </div>

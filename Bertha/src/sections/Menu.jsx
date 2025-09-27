@@ -152,8 +152,18 @@ function Menu() {
   }
 
 
+  // Estilos para la fila de tabs en pantallas grandes
+  const style = `
+    @media (min-width: 1325px) {
+      .menu-tabs-row {
+        flex-wrap: nowrap !important;
+        overflow-x: visible !important;
+      }
+    }
+  `
   return (
     <section id="menu" className="py-16 bg-[#f2f2e9]">
+      <style>{style}</style>
       <div className="container mx-auto px-4">
         <h2 className="text-4xl font-serif text-[#8b9374] mb-6 font-effra effra-bold tracking text-center">MENÚ</h2>
 
@@ -213,7 +223,7 @@ function Menu() {
           <div
             role="tablist"
             aria-label="Categorías del menú"
-            className="flex gap-3 justify-center flex-wrap overflow-x-auto py-2 px-1 w-full max-w-3xl"
+            className="flex gap-3 justify-center flex-wrap overflow-x-auto py-2 px-1 w-full max-w-3xl menu-tabs-row"
           >
             {tabs.filter(tab => tab !== ALL_TAB).map((tab, i) => {
               // compute count of items in this tab (respecting query filter)
@@ -268,13 +278,17 @@ function Menu() {
                     if (currentTab === ALL_TAB) {
                     return Object.entries(MENU).map(([topTitle, subSections], idx) => (
                         <div key={topTitle} className="break-inside-avoid mb-6">
-                        <h3 className={`text-2xl font-effra effra-bold text-[#8b9374] mb-1 ${idx === 0 ? '' : 'mt-6'} border-l-4 border-[#e9e9e1] pl-4`}>{topTitle}</h3>
-                          {Object.entries(subSections).map(([subTitle, items]) => {
+                          <h3 className={`text-xl font-effra effra-bold text-[#8b9374] mb-1 ${idx === 0 ? '' : 'mt-12'} border-l-4 border-[#e9e9e1] pl-4`}>{topTitle}</h3>
+                          {Object.entries(subSections).map(([subTitle, items], subIdx) => {
                             const filtered = items.filter(matchesPredicate)
                             if (filtered.length === 0) return null
                             return (
                               <div key={subTitle} className="mb-4">
-                                <h4 className="text-xl font-marydale tracking-wide text-[#8b9374] mt-2 ml-5">{subTitle}</h4>
+                                <h4
+                                  className={`text-xl font-marydale tracking-wide text-[#8b9374] ml-5 ${subIdx === 0 ? '' : 'mt-8'}`}
+                                >
+                                  {subTitle}
+                                </h4>
                                   <ul className="space-y-0">
                                   {filtered.map((it, idx) => (
                                     <li key={idx} className="py-3 last:pb-0">
@@ -310,12 +324,12 @@ function Menu() {
                     }
 
                     // otherwise render only the active top-level category
-                    return Object.entries(MENU[currentTab] || {}).map(([subTitle, items], idx) => {
+                    return Object.entries(MENU[currentTab] || {}).map(([subTitle, items]) => {
                       const filtered = items.filter(matchesPredicate)
                       if (filtered.length === 0) return null
                       return (
                         <div key={subTitle} className="break-inside-avoid mb-6">
-                          <h3 className={`text-2xl font-effra effra-bold text-[#8b9374] mb-3 ${idx === 0 ? '' : 'mt-6'} border-l-4 border-[#e9e9e1] pl-4`}>{subTitle}</h3>
+                          <h3 className={`text-xl font-effra effra-bold text-[#8b9374] mb-3 border-l-4 border-[#e9e9e1] pl-4`}>{subTitle}</h3>
                           <ul className="space-y-3">
                             {filtered.map((it, idx) => (
                               <li key={idx} className="py-1 last:pb-0">
